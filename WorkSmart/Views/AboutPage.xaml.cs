@@ -97,5 +97,63 @@ namespace WorkSmart.Views
                 await DisplayAlert("Notice", ex.Message.ToString(), "OK");
             }
         }
+        IList<IService> Services;
+        IService Service;
+
+        IList<ICharacteristic> Characteristics;
+        ICharacteristic Characteristic;
+
+        IDescriptor descriptor;
+        IList<IDescriptor> descriptors;
+        /// <summary>
+        /// Get list of services
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void TestBLE(object sender, EventArgs e)
+        {
+            //Services = (IList<IService>)await device.GetServicesAsync();
+            // Service = await device.GetServiceAsync(Guid.Parse("guid")); 
+            //or we call the Guid of selected Device
+            //foreach (IService s in Services)
+            //{
+            //    Console.WriteLine(s);
+            //}
+            var Service = await device.GetServiceAsync(Guid.Parse("9A48ECBA-2E92-082F-C079-9E75AAE428B1"));
+            var Characteristics = await Service.GetCharacteristicsAsync();
+
+            for (int i = 0; i<4; i++)
+            {
+                byte[] bytes = await Characteristics[i].ReadAsync();
+                 Console.WriteLine("---------------------------------");
+                foreach (Byte b in bytes)
+                {
+                   
+                    Console.WriteLine(b);
+                    
+                }
+               Console.WriteLine("---------------------------------");
+                //Console.WriteLine("---------------------------------");
+                //string test = Convert.ToBase64String(bytes);
+                //Console.WriteLine(test);
+                //Console.WriteLine("---------------------------------");
+            }
+            //descriptors = (IList<IDescriptor>)await Characteristics[0].GetDescriptorsAsync();
+
+            //foreach (IDescriptor d in descriptors)
+            //{
+            //    byte[] bytes = await d.ReadAsync();
+            //    //Console.WriteLine(bytes);
+            //    Console.WriteLine("---------------------------------");
+            //    string test = Convert.ToBase64String(bytes);
+            //    Console.WriteLine(test);
+            //    Console.WriteLine("---------------------------------");
+            //    //var bytes = await c.ReadAsync();
+            //    //Console.WriteLine(bytes);
+            //}
+
+
+            //Service = await device.GetServiceAsync(device.Id);
+        }
     }
 }

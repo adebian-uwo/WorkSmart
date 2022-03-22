@@ -33,8 +33,12 @@
             </StackLayout>
             <StackLayout>
                 <Button Text="Connect"
-                            Clicked="ConnectClicked"/>  
-        </StackLayout>
+                            Clicked="ConnectClicked"/>
+            </StackLayout>
+            <StackLayout>
+                <Button Text="Test BLE"
+                            Clicked="TestBLE"/>
+            </StackLayout>
         <ListView x:Name="lv" ItemSelected="lvItemSelected" BackgroundColor="Yellow" SeparatorColor="Aqua">
             <ListView.ItemTemplate>
                 <DataTemplate>
