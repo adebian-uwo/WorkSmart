@@ -15,25 +15,40 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+       
         <StackLayout BackgroundColor="{StaticResource Accent}" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
-                <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
-                    <Label Text="WorkSmart" FontSize="34" TextColor="White"/>
-                </ContentView>
-            </StackLayout>
+            <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
+                <Label Text="WorkSmart" FontSize="34" TextColor="Orange"/>
+
+            </ContentView>
         </StackLayout>
-        <ScrollView Grid.Row="1">
-            <StackLayout Orientation="Vertical" Padding="30,24,30,24" Spacing="10">
-               
-                <Label Text="WorkSmart is an application designed to monitor workouts and maximize gains for its users." FontSize="16" Padding="0,0,0,0"/>
-                
+            <StackLayout>
+                <Button Text="Scan"
+                        Clicked="ScanClicked"/>
             </StackLayout>
-        </ScrollView>
-    </Grid>
+            <StackLayout>
+                <Button Text="Status"
+                        Clicked="StatusClicked"/>
+            </StackLayout>
+            <StackLayout>
+                <Button Text="Connect"
+                            Clicked="ConnectClicked"/>  
+        </StackLayout>
+        <ListView x:Name="lv" ItemSelected="lvItemSelected" BackgroundColor="Yellow" SeparatorColor="Aqua">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout>
+                            <Label Text="{Binding NativeDevice.Id}" TextColor="Black"/>
+                            <Label Text="{Binding NativeDevice.Name}" TextColor="Black"/>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+    
+        
 
 </ContentPage>
