@@ -120,18 +120,20 @@ namespace WorkSmart.Views
             //    Console.WriteLine(s);
             //}
             var Service = await device.GetServiceAsync(Guid.Parse("9A48ECBA-2E92-082F-C079-9E75AAE428B1"));
-            var Characteristics = await Service.GetCharacteristicsAsync();
+            Characteristics = (IList<ICharacteristic>)await Service.GetCharacteristicsAsync();
 
             for (int i = 0; i<4; i++)
             {
                 byte[] bytes = await Characteristics[i].ReadAsync();
-                 Console.WriteLine("---------------------------------");
-                foreach (Byte b in bytes)
-                {
+                float myFloat = BitConverter.ToSingle(bytes, 0);
+                Console.WriteLine("---------------------------------");
+                Console.WriteLine(myFloat);
+                //foreach (Byte b in bytes)
+                //{
                    
-                    Console.WriteLine(b);
+                //    Console.WriteLine(b);
                     
-                }
+                //}
                Console.WriteLine("---------------------------------");
                 //Console.WriteLine("---------------------------------");
                 //string test = Convert.ToBase64String(bytes);
