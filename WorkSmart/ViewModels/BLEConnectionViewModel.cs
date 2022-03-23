@@ -5,7 +5,7 @@ using WorkSmart.Models;
 
 namespace WorkSmart.ViewModels
 {
-    public class AboutViewModel : INotifyPropertyChanged
+    public class BLEConnectionViewModel : INotifyPropertyChanged
     {
         private IDevice _nativeDevice;
 
@@ -32,6 +32,22 @@ namespace WorkSmart.ViewModels
                 PropertyChanged(this, new PropertyChangedEventArgs(caller));
             }
         }
+
+        protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
+        {
+            if (!Equals(field, newValue))
+            {
+                field = newValue;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+                return true;
+            }
+
+            return false;
+        }
+
+        private string title;
+
+        public string Title { get => title; set => SetProperty(ref title, value); }
 
 
 

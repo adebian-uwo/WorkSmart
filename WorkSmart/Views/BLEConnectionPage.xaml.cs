@@ -15,14 +15,14 @@ using Plugin.BLE.Abstractions.EventArgs;
 namespace WorkSmart.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AboutPage : ContentPage
+    public partial class BLEConnectionPage : ContentPage
     {
         IBluetoothLE ble;
         IAdapter adapter;
         ObservableCollection<IDevice> deviceList;
         IDevice device;
 
-        public AboutPage()
+        public BLEConnectionPage()
         {
             InitializeComponent();
             ble = CrossBluetoothLE.Current;
