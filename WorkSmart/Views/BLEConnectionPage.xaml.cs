@@ -20,6 +20,7 @@ namespace WorkSmart.Views
         IBluetoothLE ble;
         IAdapter adapter;
         ObservableCollection<IDevice> deviceList;
+        //HashSet<IDevice> deviceList;// = new HashSet<IDevice>();
         IDevice device;
 
         public BLEConnectionPage()
@@ -44,7 +45,7 @@ namespace WorkSmart.Views
             }
             device = lv.SelectedItem as IDevice;
         }
-        
+
         private void StatusClicked(object sender, EventArgs e)
         {
             var state = ble.State;
@@ -61,21 +62,20 @@ namespace WorkSmart.Views
 
             try
             {
-                deviceList.Clear();
-                adapter.DeviceDiscovered += (s, a) =>
-                {
-                    // repeated values in the device list with multiple searches
-                    //must find a way to eliminate dupes
-                    if(!String.IsNullOrWhiteSpace(a.Device.ToString()))
-                        deviceList.Add(a.Device);
-                };
-
                 //We have to test if the device is scanning 
                 if (!ble.Adapter.IsScanning)
                 {
+                    deviceList.Clear();
+                    adapter.DeviceDiscovered += (s, a) =>
+                    {
+                        if (!String.IsNullOrWhiteSpace(a.Device.ToString()) && !deviceList.Contains(a.Device))
+                            deviceList.Add(a.Device);
+
+                    };
                     await adapter.StartScanningForDevicesAsync();
 
                 }
+
             }
             catch (Exception ex)
             {
@@ -91,12 +91,24 @@ namespace WorkSmart.Views
                 await adapter.ConnectToDeviceAsync(device);
 
             }
-            catch (DeviceConnectionException ex)
+            catch (Exception ex)
             {
-                //Could not connect to the device
-                await DisplayAlert("Notice", ex.Message.ToString(), "OK");
+                await DisplayAlert("Alert", "You must select a device before clicking connect!", "OK");
             }
         }
+
+        private async void DisconnectClicked(object sender, EventArgs e)
+        {
+            try
+            {
+                await adapter.DisconnectDeviceAsync(device);
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Alert", "You must be connected to a device to disconnect!", "OK");
+            }
+        }
+
         IList<IService> Services;
         IService Service;
 
@@ -112,50 +124,23 @@ namespace WorkSmart.Views
         /// <param name="e"></param>
         private async void TestBLE(object sender, EventArgs e)
         {
-            //Services = (IList<IService>)await device.GetServicesAsync();
-            // Service = await device.GetServiceAsync(Guid.Parse("guid")); 
-            //or we call the Guid of selected Device
-            //foreach (IService s in Services)
-            //{
-            //    Console.WriteLine(s);
-            //}
+            //tested code that sends the arduino to start
             var Service = await device.GetServiceAsync(Guid.Parse("9A48ECBA-2E92-082F-C079-9E75AAE428B1"));
-            Characteristics = (IList<ICharacteristic>)await Service.GetCharacteristicsAsync();
-
-            for (int i = 0; i<4; i++)
-            {
-                byte[] bytes = await Characteristics[i].ReadAsync();
-                float myFloat = BitConverter.ToSingle(bytes, 0);
-                Console.WriteLine("---------------------------------");
-                Console.WriteLine(myFloat);
-                //foreach (Byte b in bytes)
-                //{
-                   
-                //    Console.WriteLine(b);
-                    
-                //}
-               Console.WriteLine("---------------------------------");
-                //Console.WriteLine("---------------------------------");
-                //string test = Convert.ToBase64String(bytes);
-                //Console.WriteLine(test);
-                //Console.WriteLine("---------------------------------");
-            }
-            //descriptors = (IList<IDescriptor>)await Characteristics[0].GetDescriptorsAsync();
-
-            //foreach (IDescriptor d in descriptors)
-            //{
-            //    byte[] bytes = await d.ReadAsync();
-            //    //Console.WriteLine(bytes);
-            //    Console.WriteLine("---------------------------------");
-            //    string test = Convert.ToBase64String(bytes);
-            //    Console.WriteLine(test);
-            //    Console.WriteLine("---------------------------------");
-            //    //var bytes = await c.ReadAsync();
-            //    //Console.WriteLine(bytes);
-            //}
-
-
-            //Service = await device.GetServiceAsync(device.Id);
+            var Characteristic = await Service.GetCharacteristicAsync(Guid.Parse("FE4E19FF-B132-0099-5E94-3FFB2CF07940"));
+            var test = true;
+            byte[] start = new byte[1];
+            start[0] = Convert.ToByte(true);
+            await Characteristic.WriteAsync(start);
+        }
+        private async void TestBLE0(object sender, EventArgs e)
+        {
+            //tested code that sends the arduino to stop
+            var Service = await device.GetServiceAsync(Guid.Parse("9A48ECBA-2E92-082F-C079-9E75AAE428B1"));
+            var Characteristic = await Service.GetCharacteristicAsync(Guid.Parse("FE4E19FF-B132-0099-5E94-3FFB2CF07940"));
+            var test = true;
+            byte[] start = new byte[1];
+            start[0] = Convert.ToByte(false);
+            await Characteristic.WriteAsync(start);
         }
     }
 }

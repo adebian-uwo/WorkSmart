@@ -19,34 +19,42 @@
         <StackLayout BackgroundColor="{StaticResource Accent}" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
             <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
-                <Label Text="WorkSmart" FontSize="34" TextColor="Green"
+                <Label Text="Device Connection" FontSize="34" TextColor="White" FontAttributes="Bold"
                        />
 
             </ContentView>
         </StackLayout>
             <StackLayout>
-                <Button Text="Scan"
+                <Button Text="Scan for Devices"
                         Clicked="ScanClicked"/>
             </StackLayout>
-            <StackLayout>
+            <!--<StackLayout>
                 <Button Text="Status"
                         Clicked="StatusClicked"/>
-            </StackLayout>
+            </StackLayout>-->
             <StackLayout>
-                <Button Text="Connect"
+                <Button Text="Connect to device"
                             Clicked="ConnectClicked"/>
             </StackLayout>
             <StackLayout>
-                <Button Text="Test BLE"
+                <Button Text="Disconnect device"
+                                    Clicked="DisconnectClicked"/>
+            </StackLayout>
+        <StackLayout>
+                <Button Text="Test BLE 1"
                             Clicked="TestBLE"/>
             </StackLayout>
-        <ListView x:Name="lv" ItemSelected="lvItemSelected" BackgroundColor="Yellow" SeparatorColor="Aqua">
+        <StackLayout>
+            <Button Text="Test BLE 0"
+                            Clicked="TestBLE0"/>
+        </StackLayout>
+        <ListView x:Name="lv" ItemSelected="lvItemSelected" BackgroundColor="White" SeparatorColor="Black">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout>
-                            <Label Text="{Binding NativeDevice.Id}" TextColor="Black"/>
-                            <Label Text="{Binding NativeDevice.Name}" TextColor="Black"/>
+                        <StackLayout >
+                            <Label  HorizontalOptions="Center" Text="{Binding NativeDevice.Id}" TextColor="Black"/>
+                            <Label  HorizontalOptions="Center" Text="{Binding NativeDevice.Name}" TextColor="Black"/>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>
