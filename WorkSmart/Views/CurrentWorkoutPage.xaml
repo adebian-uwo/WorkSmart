@@ -1,10 +1,36 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="WorkSmart.Views.CurrentWorkoutPage">
-  <ContentView.Content>
-      <StackLayout>
-          <Label Text="Hello Xamarin.Forms!" />
-      </StackLayout>
-  </ContentView.Content>
-</ContentView>
+             x:Class="WorkSmart.Views.CurrentWorkoutPage"
+             xmlns:vm="clr-namespace:WorkSmart.ViewModels"
+             Title="{Binding Title}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Accent">#96d1ff</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+
+    <StackLayout BackgroundColor="{StaticResource Accent}" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+            <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
+                <Label Text="Device Connection" FontSize="34" TextColor="White" FontAttributes="Bold"
+                       />
+            </ContentView>
+        </StackLayout>
+        <StackLayout>
+                <Button Text="Status"
+                        Clicked="StatusClicked"/>
+            </StackLayout>
+        <StackLayout>
+            <Button Text="Test BLE 1"
+                            Clicked="TestBLE"/>
+        </StackLayout>
+        <StackLayout>
+            <Button Text="Test BLE 0"
+                            Clicked="TestBLE0"/>
+        </StackLayout>
+    </StackLayout>
+    
+    
+</ContentPage>

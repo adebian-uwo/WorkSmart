@@ -32,6 +32,8 @@
                 <Button Text="Status"
                         Clicked="StatusClicked"/>
             </StackLayout>-->
+            
+            
             <StackLayout>
                 <Button Text="Connect to device"
                             Clicked="ConnectClicked"/>
@@ -40,14 +42,14 @@
                 <Button Text="Disconnect device"
                                     Clicked="DisconnectClicked"/>
             </StackLayout>
-        <StackLayout>
+        <!--<StackLayout>
                 <Button Text="Test BLE 1"
                             Clicked="TestBLE"/>
             </StackLayout>
         <StackLayout>
             <Button Text="Test BLE 0"
                             Clicked="TestBLE0"/>
-        </StackLayout>
+        </StackLayout>-->
         <ListView x:Name="lv" ItemSelected="lvItemSelected" BackgroundColor="White" SeparatorColor="Black">
             <ListView.ItemTemplate>
                 <DataTemplate>

@@ -25,7 +25,8 @@ namespace WorkSmart.Views
 
         public BLEConnectionPage()
         {
-            InitializeComponent();
+            
+            InitializeComponent();Title = "BLE Connection";
             ble = CrossBluetoothLE.Current;
             adapter = CrossBluetoothLE.Current.Adapter;
             deviceList = new ObservableCollection<IDevice>();
@@ -127,7 +128,6 @@ namespace WorkSmart.Views
             //tested code that sends the arduino to start
             var Service = await device.GetServiceAsync(Guid.Parse("9A48ECBA-2E92-082F-C079-9E75AAE428B1"));
             var Characteristic = await Service.GetCharacteristicAsync(Guid.Parse("FE4E19FF-B132-0099-5E94-3FFB2CF07940"));
-            var test = true;
             byte[] start = new byte[1];
             start[0] = Convert.ToByte(true);
             await Characteristic.WriteAsync(start);
@@ -137,7 +137,6 @@ namespace WorkSmart.Views
             //tested code that sends the arduino to stop
             var Service = await device.GetServiceAsync(Guid.Parse("9A48ECBA-2E92-082F-C079-9E75AAE428B1"));
             var Characteristic = await Service.GetCharacteristicAsync(Guid.Parse("FE4E19FF-B132-0099-5E94-3FFB2CF07940"));
-            var test = true;
             byte[] start = new byte[1];
             start[0] = Convert.ToByte(false);
             await Characteristic.WriteAsync(start);
