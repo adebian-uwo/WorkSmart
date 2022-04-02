@@ -16,14 +16,16 @@
     </ContentPage.Resources>
 
        
-        <StackLayout BackgroundColor="{StaticResource Accent}" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
+        <StackLayout BackgroundColor="White" VerticalOptions="FillAndExpand" HorizontalOptions="Fill" Spacing="15">
+            
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
-            <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
-                <Label Text="Device Connection" FontSize="34" TextColor="White" FontAttributes="Bold"
-                       />
+                <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
+                    <Label x:Name="ConnectedDevice" Text="Not Connected to a Device" FontSize="25" TextColor="Red" FontAttributes="Bold"
+                           />
 
-            </ContentView>
-        </StackLayout>
+                </ContentView>
+            </StackLayout>
+            
             <StackLayout>
                 <Button Text="Scan for Devices"
                         Clicked="ScanClicked"/>

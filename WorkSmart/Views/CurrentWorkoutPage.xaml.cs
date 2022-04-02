@@ -20,45 +20,100 @@ namespace WorkSmart.Views
         ObservableCollection<IDevice> deviceList;
         //HashSet<IDevice> deviceList;// = new HashSet<IDevice>();
         IDevice device;
+        bool workingOut = false;
+
         public CurrentWorkoutPage()
         {
             InitializeComponent();
-            
-            ble = CrossBluetoothLE.Current;
+            ConnectDevice();
+            Title = "Current Workout";
+        }
+        private void ConnectDevice()
+        {
+            //ble = CrossBluetoothLE.Current;
             adapter = CrossBluetoothLE.Current.Adapter;
-            foreach(IDevice d in adapter.ConnectedDevices)
+            foreach (IDevice d in adapter.ConnectedDevices)
             {
                 //Console.WriteLine(d.Name);
                 if (d.Name == "Arduino Nano 33 BLE")
+                {
                     device = d;
+                }
             }
         }
+        private bool CheckConnection()
+        {
+            //ble = CrossBluetoothLE.Current;
+            adapter = CrossBluetoothLE.Current.Adapter;
+            bool connected = false;
+            foreach (IDevice d in adapter.ConnectedDevices)
+            {
+                //Console.WriteLine(d.Name);
+                if (d.Name == "Arduino Nano 33 BLE")
+                {
+                    device = d;
+                    connected = true;
+                }
+            }
+            return connected;
+        }
+
+        int reps = 0;
         private void StatusClicked(object sender, EventArgs e)
         {
-            var state = ble.State;
+            //RepCount.BindingContext = slider;
+           
+              
+            RepCount.Text = "Rep Count: " + reps.ToString();
+            reps++;
+            //var state = ble.State;
             //DisplayAlert("Notice", adapter.ConnectedDevices.ToString(), "OK!");
-            Console.WriteLine("-------------------------------------------------------");
-            Console.WriteLine(device.Name);
-            Console.WriteLine("-------------------------------------------------------");
+            //Console.WriteLine("-------------------------------------------------------");
+            //Console.WriteLine(device.Name);
+            //Console.WriteLine("-------------------------------------------------------");
 
         }
-        private async void TestBLE(object sender, EventArgs e)
+        private async void TestBLE(object sender, EventArgs e)//starts workout
         {
-            //tested code that sends the arduino to start
-            var Service = await device.GetServiceAsync(Guid.Parse("9A48ECBA-2E92-082F-C079-9E75AAE428B1"));
-            var Characteristic = await Service.GetCharacteristicAsync(Guid.Parse("FE4E19FF-B132-0099-5E94-3FFB2CF07940"));
-            byte[] start = new byte[1];
-            start[0] = Convert.ToByte(true);
-            await Characteristic.WriteAsync(start);
+            reps = 0;
+            RepCount.Text = "Rep Count: " + reps.ToString();
+            if (CheckConnection())
+            {
+                //tested code that sends the arduino to start
+                var Service = await device.GetServiceAsync(Guid.Parse("9A48ECBA-2E92-082F-C079-9E75AAE428B1"));
+                var Characteristic = await Service.GetCharacteristicAsync(Guid.Parse("FE4E19FF-B132-0099-5E94-3FFB2CF07940"));
+                byte[] start = new byte[1];
+                start[0] = Convert.ToByte(true);
+                await Characteristic.WriteAsync(start);
+                CountReps(reps);
+            }
+            else 
+            {
+                await DisplayAlert("Notice", "You are not connected to a device!", "OK!");
+            }
+           
         }
-        private async void TestBLE0(object sender, EventArgs e)
+        private void CountReps(int test)//make it an async void when i have data 
         {
-            //tested code that sends the arduino to stop
-            var Service = await device.GetServiceAsync(Guid.Parse("9A48ECBA-2E92-082F-C079-9E75AAE428B1"));
-            var Characteristic = await Service.GetCharacteristicAsync(Guid.Parse("FE4E19FF-B132-0099-5E94-3FFB2CF07940"));
-            byte[] start = new byte[1];
-            start[0] = Convert.ToByte(false);
-            await Characteristic.WriteAsync(start);
+            RepCount.Text = "Rep Count: " + test.ToString();
+            test++;
+        }
+        private async void TestBLE0(object sender, EventArgs e)//ends workout
+        {
+            if (CheckConnection())
+            {
+                //tested code that sends the arduino to stop
+                var Service = await device.GetServiceAsync(Guid.Parse("9A48ECBA-2E92-082F-C079-9E75AAE428B1"));
+                var Characteristic = await Service.GetCharacteristicAsync(Guid.Parse("FE4E19FF-B132-0099-5E94-3FFB2CF07940"));
+                byte[] end = new byte[1];
+                end[0] = Convert.ToByte(false);
+                await Characteristic.WriteAsync(end);
+            }
+            else
+            {
+                await DisplayAlert("Notice", "You are not connected to a device!", "OK!");
+            }
+            
         }
 
     }

@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WorkSmart.Views.CurrentWorkoutPage"
-             xmlns:vm="clr-namespace:WorkSmart.ViewModels"
+             xmlns:vm="clr-namespace:WorkSmart.ViewModels" x:DataType="vm:CurrentWorkoutViewModel"
              Title="{Binding Title}">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -11,24 +11,27 @@
     </ContentPage.Resources>
 
 
-    <StackLayout BackgroundColor="{StaticResource Accent}" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
-        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
-            <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
-                <Label Text="Device Connection" FontSize="34" TextColor="White" FontAttributes="Bold"
-                       />
-            </ContentView>
-        </StackLayout>
-        <StackLayout>
+    <StackLayout BackgroundColor="White" VerticalOptions="FillAndExpand" HorizontalOptions="Fill" Spacing="20" Padding="0,40,0,40">
+        
+        <!--<StackLayout>
                 <Button Text="Status"
-                        Clicked="StatusClicked"/>
-            </StackLayout>
+                        Clicked="StatusClicked"
+                        />
+            </StackLayout>-->
         <StackLayout>
-            <Button Text="Test BLE 1"
+            <Button Text="Start Workout"
                             Clicked="TestBLE"/>
         </StackLayout>
         <StackLayout>
-            <Button Text="Test BLE 0"
+            <Button Text="End Workout"
                             Clicked="TestBLE0"/>
+        </StackLayout>
+        
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+            <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
+                <Label x:Name="RepCount" Text="Rep Count: 0" FontSize="34" TextColor="Black" FontAttributes="Bold"
+                       />
+            </ContentView>
         </StackLayout>
     </StackLayout>
     

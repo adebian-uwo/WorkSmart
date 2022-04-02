@@ -26,7 +26,8 @@ namespace WorkSmart.Views
         public BLEConnectionPage()
         {
             
-            InitializeComponent();Title = "BLE Connection";
+            InitializeComponent();
+            Title = "BLE Connection";
             ble = CrossBluetoothLE.Current;
             adapter = CrossBluetoothLE.Current.Adapter;
             deviceList = new ObservableCollection<IDevice>();
@@ -90,7 +91,9 @@ namespace WorkSmart.Views
             try
             {
                 await adapter.ConnectToDeviceAsync(device);
-
+                ConnectedDevice.Text = "Connected to: " + device.Name;
+                ConnectedDevice.TextColor = Color.Green;
+                ConnectedDevice.FontSize = 18;
             }
             catch (Exception ex)
             {
@@ -103,6 +106,9 @@ namespace WorkSmart.Views
             try
             {
                 await adapter.DisconnectDeviceAsync(device);
+                ConnectedDevice.Text = "Not Connected to a Device";
+                ConnectedDevice.TextColor = Color.Red;
+                ConnectedDevice.FontSize = 25;
             }
             catch (Exception ex)
             {

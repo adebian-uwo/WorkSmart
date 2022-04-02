@@ -6,7 +6,7 @@ using WorkSmart.Models;
 
 namespace WorkSmart.ViewModels
 {
-    public class CurrentWorkoutViewModel
+    public class CurrentWorkoutViewModel : INotifyPropertyChanged
     {
         private IDevice _nativeDevice;
 
@@ -49,5 +49,9 @@ namespace WorkSmart.ViewModels
         private string title;
 
         public string Title { get => title; set => SetProperty(ref title, value); }
+
+        //private string repCount;
+
+        //public string RepCount { get => repCount; set => SetProperty(ref repCount, value); }
     }
 }
