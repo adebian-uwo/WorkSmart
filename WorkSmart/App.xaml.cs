@@ -14,7 +14,8 @@ namespace WorkSmart
             InitializeComponent();
 
             DependencyService.Register<MockDataStore>();
-            MainPage = new AppShell();
+            MainPage = new NavigationPage(new LoginPage());
+            var HomePage = new AppShell();
         }
 
         protected override void OnStart()

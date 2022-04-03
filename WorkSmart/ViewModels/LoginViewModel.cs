@@ -14,15 +14,9 @@ namespace WorkSmart.ViewModels
         public LoginViewModel()
         {
             LoginCommand = new Command(OnLoginClicked);
-            RegisterCommand = new Command(OnRegisterClicked);
         }
 
         private async void OnLoginClicked(object obj)
-        {
-            // Prefixing with `//` switches to a different navigation stack instead of pushing to the active one
-            await Shell.Current.GoToAsync($"//{nameof(BLEConnectionPage)}");
-        }
-        private async void OnRegisterClicked(object obj)
         {
             // Prefixing with `//` switches to a different navigation stack instead of pushing to the active one
             await Shell.Current.GoToAsync($"//{nameof(BLEConnectionPage)}");
