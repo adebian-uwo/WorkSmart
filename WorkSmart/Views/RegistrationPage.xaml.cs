@@ -15,6 +15,14 @@ namespace WorkSmart.Views
         public RegistrationPage()
         {
             InitializeComponent();
+
+            var connection = DependencyService.Get<ISQLiteDb>().GetConnection();
+            connection.CreateTableAsync<User>();
+        }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+
         }
     }
 }

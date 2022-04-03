@@ -11,7 +11,7 @@
             <Entry Placeholder="Email" Keyboard="Email"></Entry>
             <Entry Placeholder="Password" IsPassword="True"></Entry>
             <Entry Placeholder="Confirm Password" IsPassword="True"></Entry>
-            <Button Text="Sign Up"></Button>
+            <Button Text="Sign Up" Clicked="Button_Clicked"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
