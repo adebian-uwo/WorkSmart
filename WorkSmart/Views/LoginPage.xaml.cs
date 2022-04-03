@@ -18,10 +18,6 @@ namespace WorkSmart.Views
             this.BindingContext = new LoginViewModel();
         }
 
-        private void Login_Button_Clicked(object sender, EventArgs e)
-        {
-
-        }
 
         private async void Register_Button_Clicked(object sender, EventArgs e)
         {

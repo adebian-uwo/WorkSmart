@@ -12,7 +12,7 @@
                 <Entry Placeholder="Email" Keyboard="Email"></Entry>
                 <Entry Placeholder="Password" IsPassword="True"></Entry>
             </StackLayout>
-            <Button VerticalOptions="Center" Text="Login" Clicked="Login_Button_Clicked"/>
+            <Button VerticalOptions="Center" Text="Login" Command="{Binding LoginCommand}"/>
             <Button VerticalOptions="Center" Text="Register" Clicked="Register_Button_Clicked"/>
         </StackLayout>
     </ContentPage.Content>
