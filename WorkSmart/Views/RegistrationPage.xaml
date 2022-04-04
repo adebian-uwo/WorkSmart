@@ -5,12 +5,12 @@
     <ContentPage.Content>
         <StackLayout VerticalOptions="CenterAndExpand" Padding="5">
             <StackLayout Orientation="Horizontal">
-                <Entry Placeholder="First Name"></Entry>
-                <Entry Placeholder="Last Name"></Entry>
+                <Entry x:Name="fName" Placeholder="First Name"></Entry>
+                <Entry x:Name="lName" Placeholder="Last Name"></Entry>
             </StackLayout>
-            <Entry Placeholder="Email" Keyboard="Email"></Entry>
-            <Entry Placeholder="Password" IsPassword="True"></Entry>
-            <Entry Placeholder="Confirm Password" IsPassword="True"></Entry>
+            <Entry x:Name="regEmail" Placeholder="Email" Keyboard="Email"></Entry>
+            <Entry x:Name="regPwd" Placeholder="Password" IsPassword="True"></Entry>
+            <Entry x:Name="regPwdCon" Placeholder="Confirm Password" IsPassword="True"></Entry>
             <Button Text="Sign Up" Clicked="Button_Clicked"></Button>
         </StackLayout>
     </ContentPage.Content>

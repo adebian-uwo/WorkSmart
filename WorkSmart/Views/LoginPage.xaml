@@ -7,13 +7,16 @@
              x:Class="WorkSmart.Views.LoginPage"
              Shell.NavBarIsVisible="False">
     <ContentPage.Content>
-        <StackLayout Padding="10,0,10,0" VerticalOptions="Center">
-            <StackLayout VerticalOptions="CenterAndExpand" Padding="5">
-                <Entry Placeholder="Email" Keyboard="Email"></Entry>
-                <Entry Placeholder="Password" IsPassword="True"></Entry>
+        <StackLayout>
+            <StackLayout Padding="10,0,10,0" VerticalOptions="CenterAndExpand">
+                <StackLayout VerticalOptions="CenterAndExpand" Padding="5">
+                    <Label Text="WorkSmart" TextColor="MediumBlue" FontSize="72"></Label>
+                    <Entry x:Name="Email" Placeholder="Email" Keyboard="Email"></Entry>
+                    <Entry x:Name="Password" Placeholder="Password" IsPassword="True"></Entry>
+                </StackLayout>
+                <Button VerticalOptions="Center" Text="Login" Clicked="Login_Button_Clicked"/>
+                <Button VerticalOptions="Center" Text="Register" Clicked="Register_Button_Clicked"/>
             </StackLayout>
-            <Button VerticalOptions="Center" Text="Login" Command="{Binding LoginCommand}"/>
-            <Button VerticalOptions="Center" Text="Register" Clicked="Register_Button_Clicked"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
