@@ -9,13 +9,14 @@
     <ContentPage.Content>
         <StackLayout>
             <StackLayout Padding="10,0,10,0" VerticalOptions="CenterAndExpand">
-                <StackLayout VerticalOptions="CenterAndExpand" Padding="5">
-                    <Label Text="WorkSmart" TextColor="MediumBlue" FontSize="72"></Label>
-                    <Entry x:Name="Email" Placeholder="Email" Keyboard="Email"></Entry>
-                    <Entry x:Name="Password" Placeholder="Password" IsPassword="True"></Entry>
+                <StackLayout VerticalOptions="CenterAndExpand" Padding="5" Spacing="40">
+                    <Label Text="WorkSmart" TextColor="MediumBlue" FontSize="67"></Label>
+                    <Entry x:Name="Email"  Placeholder="Email" TextColor="Black" PlaceholderColor="DarkGray" Keyboard="Email" ></Entry>
+                    <Entry x:Name="Password"   Placeholder="Password" TextColor="Black" PlaceholderColor="DarkGray" IsPassword="True"></Entry>
+                    <Button VerticalOptions="Center" Text="Login" Clicked="Login_Button_Clicked"/>
+                    <Button VerticalOptions="Center" Text="Register" Clicked="Register_Button_Clicked"/>
                 </StackLayout>
-                <Button VerticalOptions="Center" Text="Login" Clicked="Login_Button_Clicked"/>
-                <Button VerticalOptions="Center" Text="Register" Clicked="Register_Button_Clicked"/>
+               
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

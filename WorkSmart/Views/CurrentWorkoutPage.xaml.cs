@@ -85,7 +85,8 @@ namespace WorkSmart.Views
                 byte[] start = new byte[1];
                 start[0] = Convert.ToByte(true);
                 await Characteristic.WriteAsync(start);
-                CountReps(reps);
+                workingOut = true;
+                CountReps();
             }
             else 
             {
@@ -93,10 +94,45 @@ namespace WorkSmart.Views
             }
            
         }
-        private void CountReps(int test)//make it an async void when i have data 
+        private async void CountReps()//make it an async void when i have data 
         {
-            RepCount.Text = "Rep Count: " + test.ToString();
-            test++;
+            //tested code that sends the arduino to stop
+            var Service = await device.GetServiceAsync(Guid.Parse("9A48ECBA-2E92-082F-C079-9E75AAE428B1"));
+            var Characteristic = await Service.GetCharacteristicAsync(Guid.Parse("00002ACC-0000-1000-8000-00805F9B34FB"));
+
+            while (workingOut)
+            {
+
+                try
+                {
+                    if (workingOut)
+                    {
+                        byte[] recieved = await Characteristic.ReadAsync();
+                        Console.WriteLine("-----------------------------------------");
+                        Console.WriteLine(recieved);
+                        RepCount.Text = "Rep Count: " + BitConverter.ToInt32(recieved, 0).ToString();
+                        Console.WriteLine(BitConverter.ToInt32(recieved,0));
+                        Console.WriteLine("-----------------------------------------");
+                    }
+                    
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                    //Console.WriteLine("-----------------------------------------");
+                    //Console.WriteLine(e.ToString());
+                    //Console.WriteLine("-----------------------------------------");
+                }
+            }
+
+
+
+
+            //byte[] end = new byte[1];
+            //end[0] = Convert.ToByte(false);
+            //await Characteristic.WriteAsync(end);
+            //RepCount.Text = "Rep Count: " + test.ToString();
+            //test++;
         }
         private async void TestBLE0(object sender, EventArgs e)//ends workout
         {
@@ -107,6 +143,8 @@ namespace WorkSmart.Views
                 var Characteristic = await Service.GetCharacteristicAsync(Guid.Parse("FE4E19FF-B132-0099-5E94-3FFB2CF07940"));
                 byte[] end = new byte[1];
                 end[0] = Convert.ToByte(false);
+                workingOut = false;
+                System.Threading.Thread.Sleep(1000);
                 await Characteristic.WriteAsync(end);
             }
             else
